@@ -20,10 +20,13 @@ inputs:
   output:
     description: "Output format for results"
     default: "stdout"
+  data:
+    description: "Additional Data"
+    default: "conftest-data"
 runs:
   using: 'docker'
   image: 'docker://openpolicyagent/conftest:v0.62.0'
   entrypoint: sh
   args:
   - -c
-  - conftest test -o "${{ inputs.output }}" -p "${{ inputs.policy }}" --namespace "${{ inputs.namespace }}" --combine="${{ inputs.combine }}" ${{ inputs.files }} 
+  - conftest test -o "${{ inputs.output }}" -p "${{ inputs.policy }}" -d "${{ inputs.data }}" --namespace "${{ inputs.namespace }}" --combine="${{ inputs.combine }}" ${{ inputs.files }}
